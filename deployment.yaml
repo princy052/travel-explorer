@@ -1,0 +1,33 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travel-explorer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: travel-explorer
+  template:
+    metadata:
+      labels:
+        app: travel-explorer
+    spec:
+      containers:
+        - name: travel-explorer
+          image: travel-explorer:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: travel-explorer
+spec:
+  selector:
+    app: travel-explorer
+  ports:
+    - port: 80
+      targetPort: 80
+  type: NodePort

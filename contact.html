@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Travel Explorer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <a href="index.html" class="logo">Travel<span>Explorer.</span></a>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="destinations.html">Destinations</a>
+        <a href="about.html">About</a>
+        <a href="tips.html">Travel Tips</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="page-hero">
+    <p class="eyebrow">LET'S CONNECT</p>
+    <h1>Every great journey<br><span>starts with a conversation.</span></h1>
+    <p>Have a question or suggestion? We'd love to hear from you.</p>
+</section>
+
+<section class="contact-section">
+
+    <div class="contact-info">
+        <p class="eyebrow">GET IN TOUCH</p>
+        <h2>Let's plan something wonderful.</h2>
+        <p>
+            Whether you're looking for travel inspiration or have feedback
+            about our website, send us a message using the form.
+        </p>
+
+        <div class="contact-detail">
+            <span>🌍</span>
+            <div>
+                <h3>Explore</h3>
+                <p>Discover destinations around the world.</p>
+            </div>
+        </div>
+
+        <div class="contact-detail">
+            <span>✉️</span>
+            <div>
+                <h3>Send Feedback</h3>
+                <p>Share your ideas to help improve Travel Explorer.</p>
+            </div>
+        </div>
+
+        <a href="destinations.html" class="contact-explore">
+            Browse destinations →
+        </a>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+        <h2>Send us a message</h2>
+
+        <label for="visitorName">Your name</label>
+        <input type="text" id="visitorName" name="name"
+               placeholder="Enter your name" required>
+
+        <label for="visitorEmail">Email address</label>
+        <input type="email" id="visitorEmail" name="email"
+               placeholder="you@example.com" required>
+
+        <label for="visitorSubject">Subject</label>
+        <select id="visitorSubject" name="subject" required>
+            <option value="">Choose a subject</option>
+            <option value="travel">Travel question</option>
+            <option value="feedback">Website feedback</option>
+            <option value="suggestion">Destination suggestion</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="visitorMessage">Your message</label>
+        <textarea id="visitorMessage" name="message" rows="5"
+                  placeholder="Write your message here..." required></textarea>
+
+        <button type="submit" class="btn">Submit Message</button>
+
+        <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+    </form>
+
+</section>
+
+<footer class="footer">
+    <p>© 2026 Travel Explorer. Explore more. Worry less.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

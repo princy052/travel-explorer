@@ -1,0 +1,283 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Travel Explorer</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .register-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 35px 20px;
+      background: #fbfaf6;
+    }
+
+    .register-card {
+      width: 100%;
+      max-width: 440px;
+      padding: 38px;
+      background: #fff;
+      border: 1px solid #e1e7dd;
+      border-radius: 6px;
+      box-shadow: 0 10px 35px rgba(24, 43, 39, 0.07);
+    }
+
+    .register-logo {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #102c27;
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .register-logo span {
+      color: #648d6b;
+    }
+
+    .register-card .eyebrow {
+      text-align: center;
+      color: #648d6b;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      margin-bottom: 10px;
+    }
+
+    .register-card h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 35px;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .register-subtitle {
+      text-align: center;
+      color: #69766f;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .register-card label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin: 16px 0 7px;
+    }
+
+    .register-card input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d9e0d7;
+      border-radius: 4px;
+      background: white;
+      color: #182b27;
+      font: inherit;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .register-card input:focus {
+      outline: 2px solid #8eae91;
+      outline-offset: 1px;
+    }
+
+    .register-button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 24px;
+      border: none;
+      border-radius: 4px;
+      background: #102c27;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .register-button:hover {
+      background: #244b3c;
+      transform: translateY(-2px);
+    }
+
+    .register-message {
+      margin-top: 14px;
+      color: #b42318;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .register-footer {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid #e9e9df;
+      text-align: center;
+      color: #69766f;
+      font-size: 13px;
+    }
+
+    .register-footer a {
+      color: #466e50;
+      font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      .register-card {
+        padding: 27px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="register-page">
+    <section class="register-card">
+      <div class="register-logo">✈ Travel<span>Explorer</span></div>
+
+      <p class="eyebrow">START YOUR JOURNEY</p>
+      <h1>Create Account</h1>
+      <p class="register-subtitle">
+        Join us and discover amazing destinations.
+      </p>
+
+      <form id="registerForm">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter your full name"
+          autocomplete="name"
+          required
+        >
+
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+          required
+        >
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Create a password"
+          autocomplete="new-password"
+          minlength="8"
+          required
+        >
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="Re-enter your password"
+          autocomplete="new-password"
+          minlength="8"
+          required
+        >
+
+        <button class="register-button" type="submit">
+          Create Account
+        </button>
+
+        <p class="register-message" id="registerMessage"
+           role="status"></p>
+      </form>
+
+      <p class="register-footer">
+        Already have an account?
+        <a href="login.html">Sign in</a>
+      </p>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("registerForm")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email")
+          .value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        const message = document.getElementById("registerMessage");
+
+        message.textContent = "";
+
+        if (password !== confirmPassword) {
+          message.textContent = "Passwords do not match.";
+          return;
+        }
+
+        let accounts;
+
+        try {
+          accounts = JSON.parse(
+            localStorage.getItem("travelExplorerAccounts") || "[]"
+          );
+
+          if (!Array.isArray(accounts)) {
+            accounts = [];
+          }
+        } catch (error) {
+          message.textContent =
+            "Unable to read saved accounts. Please try again.";
+          return;
+        }
+
+        const alreadyRegistered = accounts.some(function(account) {
+          return account.email &&
+            account.email.toLowerCase() === email;
+        });
+
+        if (alreadyRegistered) {
+          message.textContent =
+            "This email is already registered. Please sign in.";
+          return;
+        }
+
+        accounts.push({
+          name: name,
+          email: email,
+          password: password
+        });
+
+        try {
+          localStorage.setItem(
+            "travelExplorerAccounts",
+            JSON.stringify(accounts)
+          );
+
+          localStorage.setItem(
+            "travelExplorerLoggedIn",
+            JSON.stringify({
+              name: name,
+              email: email
+            })
+          );
+
+          window.location.href = "index.html";
+        } catch (error) {
+          message.textContent =
+            "Unable to save your account in this browser.";
+        }
+      });
+  </script>
+</body>
+</html>
+```
